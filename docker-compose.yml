@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  cafeflow:
+    build: .
+    image: cafeflow:latest
+    container_name: cafeflow
+    ports:
+      - "80:80"       # Change left side to use a different host port, e.g. "8080:80"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
